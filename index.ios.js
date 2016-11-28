@@ -17,7 +17,14 @@ import {
 
 const todo = (state = {}, action) => {
   switch (action.type) {
-    case 'ADD_TODO':
+    case 'EDIT_TEXT':
+      console.log(action.text)
+      return {
+        text: action.text,
+        completed: false
+      }
+    case 'SUBMIT_TODO':
+      console.log(`submit: ${action.text}`)
       return {
         text: action.text,
         completed: false
@@ -32,13 +39,17 @@ const store = createStore(combineReducers({
 }))
 
 const addTodo = (text) => ({
-  type: 'ADD_TODO',
+  type: 'EDIT_TEXT',
   text
 })
-
+const addTodo = (text) => ({
+  type: 'EDIT_TEXT',
+  text
+})
 const AddTodo = connect()(({ dispatch }) => {
   return (
     <TextInput
+      style={{ height: 40 }}
       placeholder="input something"
       onChangeText={(text) => {dispatch(addTodo(text))}}
     />
